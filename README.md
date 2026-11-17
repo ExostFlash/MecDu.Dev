@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MecDu.Dev
 
-## Getting Started
+Site vitrine de **MecDu.Dev** — *L'expertise backend, l'élégance frontend.*
 
-First, run the development server:
+Next.js (App Router) + Tailwind CSS, exporté en site statique pour GitHub Pages.
+
+## Développement
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Build statique
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build   # génère ./out
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Déploiement GitHub Pages
 
-## Learn More
+1. Pousser le dépôt sur GitHub (branche `main`).
+2. Dans **Settings → Pages**, choisir **Source : GitHub Actions**.
+3. Chaque push sur `main` lance `.github/workflows/deploy.yml`.
 
-To learn more about Next.js, take a look at the following resources:
+Le workflow détecte automatiquement le chemin de base :
+- dépôt `ExostFlash.github.io` ou domaine personnalisé → site servi à la racine ;
+- autre dépôt → site servi sous `/<nom-du-repo>`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Domaine personnalisé (mecdu.dev)** : ajouter le domaine dans *Settings → Pages → Custom domain*
+et faire pointer le DNS vers GitHub Pages.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Structure
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `src/lib/site.ts` — textes et liens
+- `src/lib/projects.ts` — chargement des projets depuis https://lehub.tf/api/links (côté navigateur)
+- `src/components/` — Header, Hero (matrix), À propos, Services, Projets, Contact, Footer
+- `public/images/` — logo et illustrations
