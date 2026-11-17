@@ -24,8 +24,8 @@ npm run build   # génère ./out
 3. Chaque push sur `main` lance `.github/workflows/deploy.yml`.
 
 Le workflow détecte automatiquement le chemin de base :
-- dépôt `ExostFlash.github.io` ou domaine personnalisé → site servi à la racine ;
-- autre dépôt → site servi sous `/<nom-du-repo>`.
+- fichier `public/CNAME` présent (domaine personnalisé, ici `mecdu.dev`) → site servi à la racine ;
+- sans `public/CNAME` → site servi sous `/<nom-du-repo>`.
 
 **Domaine personnalisé (mecdu.dev)** : ajouter le domaine dans *Settings → Pages → Custom domain*
 et faire pointer le DNS vers GitHub Pages.

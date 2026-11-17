@@ -29,13 +29,24 @@ jobs:
         id: pages
         uses: actions/configure-pages@v5
 
+      - name: Calculer le chemin de base
+        id: base
+        # Avec un domaine personnalisé (public/CNAME), le site est servi à la racine.
+        # Sinon, on reprend le chemin donné par GitHub Pages (/<nom-du-repo>).
+        run: |
+          if [ -s public/CNAME ]; then
+            echo "path=" >> "$GITHUB_OUTPUT"
+          else
+            echo "path=${{ steps.pages.outputs.base_path }}" >> "$GITHUB_OUTPUT"
+          fi
+
       - run: npm ci
 
       - name: Build (export statique)
         run: npm run build
         env:
-          # "" avec un domaine personnalisé, "/<repo>" sinon
-          NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          # "" avec un domaine personnalisé, "/<repo>" sinon (voir étape précédente)
+          NEXT_PUBLIC_BASE_PATH: ${{ steps.base.outputs.path }}
 
       - uses: actions/upload-pages-artifact@v3
         with:
